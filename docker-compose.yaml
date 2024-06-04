@@ -1,0 +1,13 @@
+version: '3'
+services:
+  promo-api:
+    image: bitnami/postgresql:latest
+    environment:
+      - POSTGRESQL_USERNAME=admin
+      - POSTGRESQL_PASSWORD=admin
+      - POSTGRESQL_DATABASE=promo_api_db
+      - PGDATA=/bitnami/postgresql/data/pgdata
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/bitnami/postgresql/data%
