@@ -1,6 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { PrismaService } from 'src/infrastructure/database/service/prisma.service';
+import { PrismaService } from '@/infra/database/service/prisma.service';
+import { Body, Controller, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { z } from 'zod';
+import { ZodValidationPipe } from '../../pipes/validations/zod-validation-pipe';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 
 const createProductBodySchema = z.object({
   name: z.string(),
@@ -11,6 +13,9 @@ const createProductBodySchema = z.object({
 type CreateProductBodySchema = z.infer<typeof createProductBodySchema>;
 
 @Controller('products')
+// TODO: To use Auth Guard, uncomment the line below
+// @UseGuards(JwtAuthGuard)
+@UsePipes(new ZodValidationPipe(createProductBodySchema))
 export class CreateProductController {
   constructor(private prisma: PrismaService) {}
 

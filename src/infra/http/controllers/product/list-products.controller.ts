@@ -1,5 +1,6 @@
+
+import { PrismaService } from '@/infra/database/service/prisma.service';
 import { Controller, Get } from '@nestjs/common';
-import { PrismaService } from 'src/infrastructure/database/service/prisma.service';
 
 @Controller('products')
 export class ListProductsController {

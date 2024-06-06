@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { envSchema } from './configs/env';
-import { PrismaService } from './infrastructure/database/service/prisma.service';
-import { ProductModule } from './modules/product/product.module';
+import { PrismaService } from '../database/service/prisma.service';
+import { envSchema } from '@/configs/env';
+import { HttpModule } from '../http/http.module';
 
 @Module({
   imports: [
@@ -10,9 +10,8 @@ import { ProductModule } from './modules/product/product.module';
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
-    ProductModule,
+    HttpModule,
   ],
   controllers: [],
-  providers: [PrismaService],
 })
 export class AppModule {}

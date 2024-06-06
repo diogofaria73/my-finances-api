@@ -11,3 +11,7 @@ Content-Type: application/json
   "description": "Product 1 description",
   "price": 100
 }
+
+###
+@name = 'list-products''
+GET {{baseUrl}}/products/list
