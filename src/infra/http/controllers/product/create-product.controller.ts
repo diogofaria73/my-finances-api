@@ -2,7 +2,7 @@ import { PrismaService } from '@/infra/database/service/prisma.service';
 import { Body, Controller, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../../pipes/validations/zod-validation-pipe';
-import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../authentication/jwt-auth-guard';
 
 const createProductBodySchema = z.object({
   name: z.string(),
