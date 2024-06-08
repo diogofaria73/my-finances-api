@@ -11,7 +11,7 @@ import { AuthModule } from '../http/controllers/auth/auth.module';
       isGlobal: true,
     }),
     HttpModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [],
 })

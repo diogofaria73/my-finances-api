@@ -1,52 +1,57 @@
-import { PrismaService } from "@/infra/database/service/prisma.service";
-import { Body, Controller, Post, UnauthorizedException, UsePipes } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { compare } from "bcryptjs";
-import { z } from 'zod'
-import { ZodValidationPipe } from "../../pipes/validations/zod-validation-pipe";
-
+import { PrismaService } from '@/infra/database/service/prisma.service';
+import {
+  Body,
+  Controller,
+  Post,
+  UnauthorizedException,
+  UsePipes,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { compare } from 'bcryptjs';
+import { z } from 'zod';
+import { ZodValidationPipe } from '../../pipes/validations/zod-validation-pipe';
 
 const authenticateBodySchema = z.object({
-   email: z.string().email(),
-   password: z.string().min(6).max(255)
-})
+  email: z.string().email(),
+  password: z.string().min(6).max(255),
+});
 
-type AuthenticateBody = z.infer<typeof authenticateBodySchema>
+type AuthenticateBody = z.infer<typeof authenticateBodySchema>;
 
 @Controller('/sessions')
-export class AuthController{
+export class AuthController {
+  constructor(
+    private jwt: JwtService,
+    private prisma: PrismaService,
+  ) {}
 
-   constructor(private jwt: JwtService, private prisma: PrismaService){}
+  @Post('/create')
+  @UsePipes(new ZodValidationPipe(authenticateBodySchema))
+  async handle(@Body() body: AuthenticateBody) {
+    const { email, password } = body;
 
-   @Post('/create')
-   @UsePipes(new ZodValidationPipe(authenticateBodySchema))
-   async handle(@Body() body: AuthenticateBody){
+    const user = await this.prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
 
-      const { email, password } = body
+    if (!user) {
+      throw new UnauthorizedException('User credentials do not match');
+    }
 
-      const user = await this.prisma.user.findFirst({
-         where:{
-            email
-         }
-      })
+    const isPasswordMatch = await compare(password, user.password);
 
-      if (!user){
-         throw new UnauthorizedException('User credentials do not match')
-      }
+    if (!isPasswordMatch) {
+      throw new UnauthorizedException('User credentials do not match');
+    }
 
-      const isPasswordMatch = await compare(password, user.password)
+    const accessToken = this.jwt.sign({
+      sub: user,
+    });
 
-      if(!isPasswordMatch){
-         throw new UnauthorizedException('User credentials do not match')
-      }
-
-      const accessToken = this.jwt.sign({
-         sub: user
-      })
-
-      return {
-         access_token: accessToken
-      }
-
-   }
+    return {
+      access_token: accessToken,
+    };
+  }
 }
