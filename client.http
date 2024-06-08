@@ -15,3 +15,30 @@ Content-Type: application/json
 ###
 @name = 'list-products''
 GET {{baseUrl}}/products/list
+
+
+###
+@name = 'create-user'
+POST {{baseUrl}}/users/create
+Content-Type: application/json
+
+{
+  "name": "User 1",
+  "email": "diogofaria072@gmail.com",
+  "password": "fadababaca"
+}
+
+###
+@name = 'list-users'
+GET {{baseUrl}}/users/list
+
+
+###
+@name = 'user-session'
+POST {{baseUrl}}/sessions/create
+Content-Type: application/json
+
+{
+  "email": "diogofaria072@gmail.com",
+  "password": "fadababaca"
+}

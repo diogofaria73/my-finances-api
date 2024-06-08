@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaService } from '../database/service/prisma.service';
 import { envSchema } from '@/configs/env';
 import { HttpModule } from '../http/http.module';
+import { AuthModule } from '../http/controllers/auth/auth.module';
 
 @Module({
   imports: [
@@ -11,6 +11,7 @@ import { HttpModule } from '../http/http.module';
       isGlobal: true,
     }),
     HttpModule,
+    AuthModule
   ],
   controllers: [],
 })

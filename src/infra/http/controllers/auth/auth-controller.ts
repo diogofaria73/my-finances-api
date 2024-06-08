@@ -1,40 +1,52 @@
 import { PrismaService } from "@/infra/database/service/prisma.service";
-import { Body, Controller, UnauthorizedException } from "@nestjs/common";
+import { Body, Controller, Post, UnauthorizedException, UsePipes } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { compare } from "bcryptjs";
-import { z } from "zod";
+import { z } from 'zod'
+import { ZodValidationPipe } from "../../pipes/validations/zod-validation-pipe";
 
-const authBodySchema = z.object({
+
+const authenticateBodySchema = z.object({
    email: z.string().email(),
-   password: z.string().min(6),
+   password: z.string().min(6).max(255)
 })
 
-type AuthBodySchema = z.infer<typeof authBodySchema>
+type AuthenticateBody = z.infer<typeof authenticateBodySchema>
 
-@Controller('/session')
-export class AuthController {
-   constructor(private jwt: JwtService, private prisma: PrismaService) {}
+@Controller('/sessions')
+export class AuthController{
 
-   async handle(@Body() body: AuthBodySchema) {
-      const { email, password } = body;
+   constructor(private jwt: JwtService, private prisma: PrismaService){}
 
-      const user = await this.prisma.user.findUnique({
+   @Post('/create')
+   @UsePipes(new ZodValidationPipe(authenticateBodySchema))
+   async handle(@Body() body: AuthenticateBody){
+
+      const { email, password } = body
+
+      const user = await this.prisma.user.findFirst({
          where:{
             email
          }
       })
 
-      if (!user)
+      if (!user){
          throw new UnauthorizedException('User credentials do not match')
+      }
 
-      const isPasswordValid = await compare(password, user.password)
+      const isPasswordMatch = await compare(password, user.password)
 
-      if(!isPasswordValid)
+      if(!isPasswordMatch){
          throw new UnauthorizedException('User credentials do not match')
+      }
 
-      const accessToken = this.jwt.sign({ sub: user })
+      const accessToken = this.jwt.sign({
+         sub: user
+      })
 
-      return { access_token: accessToken }
+      return {
+         access_token: accessToken
+      }
 
    }
 }
