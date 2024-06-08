@@ -1,10 +1,11 @@
 @baseUrl = http://localhost:3000
-
+@authToken = {{authenticate.response.body.access_token}}
 ###
 
-@name = 'create-product''
+# @name create-product
 POST {{baseUrl}}/products/create
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 {
   "name": "Product 1",
@@ -13,12 +14,12 @@ Content-Type: application/json
 }
 
 ###
-@name = 'list-products''
+# @name list-products
 GET {{baseUrl}}/products/list
 
 
 ###
-@name = 'create-user'
+# @name create-user
 POST {{baseUrl}}/users/create
 Content-Type: application/json
 
@@ -29,12 +30,12 @@ Content-Type: application/json
 }
 
 ###
-@name = 'list-users'
+# @name list-users
 GET {{baseUrl}}/users/list
 
 
 ###
-@name = 'user-session'
+# @name authenticate
 POST {{baseUrl}}/sessions/create
 Content-Type: application/json
 

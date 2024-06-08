@@ -14,7 +14,7 @@ type CreateProductBodySchema = z.infer<typeof createProductBodySchema>;
 
 @Controller('products')
 // TODO: To use Auth Guard, uncomment the line below
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @UsePipes(new ZodValidationPipe(createProductBodySchema))
 export class CreateProductController {
   constructor(private prisma: PrismaService) {}

@@ -14,6 +14,7 @@ import { inflate, inflateRaw } from 'zlib';
     DatabaseModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
+      global: true,
       useFactory(configService: ConfigService<Env, true>) {
 
         const privateKey = configService.get('PRIVATE_KEY', { infer: true});
@@ -21,7 +22,6 @@ import { inflate, inflateRaw } from 'zlib';
 
         return {
           signOptions: { algorithm: 'RS256' },
-          // secret: Buffer.from(privateKey, 'base64'),
           privateKey: Buffer.from(privateKey, 'base64'),
           publicKey: Buffer.from(publicKey, 'base64'),
         };
