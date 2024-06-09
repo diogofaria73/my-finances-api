@@ -1,8 +1,14 @@
-export interface ICreateProductInterface<T> {
-  createProduct(data: T): Promise<T>;
-  updateProduct(data: T): Promise<T>;
-  deleteProduct(id: string): Promise<T>;
-  listAllProducts(): Promise<T[]>;
-  listProductById(id: string): Promise<T>;
-  listProductByType(type: string): Promise<T[]>;
+import { ProductEntity } from "../../entities/product-entity";
+
+export abstract class ICreateProductInterface {
+
+  abstract create(data: ProductEntity): Promise<ProductEntity | null>;
+
+  abstract update(data: ProductEntity): Promise<ProductEntity | null>;
+
+  abstract delete(id: string): Promise<ProductEntity | null>;
+
+  abstract  findAll(): Promise<ProductEntity[] | null>;
+  
+  abstract findById(id: string): Promise<ProductEntity | null>;
 }

@@ -10,7 +10,8 @@ Authorization: Bearer {{authToken}}
 {
   "name": "Product 1",
   "description": "Product 1 description",
-  "price": 100
+  "price": 100,
+  "isAvailable": true
 }
 
 ###
@@ -26,7 +27,8 @@ Content-Type: application/json
 {
   "name": "User 1",
   "email": "diogofaria072@gmail.com",
-  "password": "fadababaca"
+  "password": "fadababaca",
+  "isActive": true
 }
 
 ###

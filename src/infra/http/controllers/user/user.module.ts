@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CreateUserController } from './create-user.controller';
-import { ListUsersController } from './list-users.controller';
+import { CreateUserController } from './actions/create-user.controller';
+import { ListUsersController } from './actions/list-users.controller';
 import { DatabaseModule } from '@/infra/database/database.module';
 
 @Module({

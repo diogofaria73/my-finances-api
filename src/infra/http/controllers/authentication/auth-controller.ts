@@ -1,4 +1,4 @@
-import { PrismaService } from '@/infra/database/service/prisma.service';
+import { PrismaService } from '@/infra/database/prisma.service';
 import {
   Body,
   Controller,

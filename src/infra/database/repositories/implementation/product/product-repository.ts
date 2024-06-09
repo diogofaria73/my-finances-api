@@ -1,85 +1,42 @@
 import { ICreateProductInterface } from '@/domain/product/application/interfaces/product-interfaces-repository';
+import { ProductEntity } from '@/domain/product/entities/product-entity';
+import { PrismaService } from '@/infra/database/prisma.service';
+import { PrismaProductMapper } from '@/infra/database/prisma/mappers/product/prisma-product-mapper';
 import { Injectable } from '@nestjs/common';
-import { Product } from '@prisma/client';
 
 @Injectable()
-export class ProductRepository implements ICreateProductInterface<Product> {
-  createProduct(data: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }): Promise<{
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
+export class ProductRepository implements ICreateProductInterface {
+
+  constructor( private readonly prisma: PrismaService) { }
+
+  async create(data: ProductEntity): Promise<ProductEntity | null> {
+    
+    const product = await this.prisma.product.create({
+      data: {
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        isAvailable: data.isAvailable
+      }
+    })
+
+    if (!product) return null
+
+    return PrismaProductMapper.toDomain(product)
+  }
+  async update(data: ProductEntity): Promise<ProductEntity | null> {
     throw new Error('Method not implemented.');
   }
-  updateProduct(data: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }): Promise<{
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
+  async delete(id: string): Promise<ProductEntity | null> {
     throw new Error('Method not implemented.');
   }
-  deleteProduct(id: string): Promise<{
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
+  async findAll(): Promise<ProductEntity[] | null> {
+    const products = await this.prisma.product.findMany()
+
+    return products.map(PrismaProductMapper.toDomain)
+  }
+  async findById(id: string): Promise<ProductEntity | null> {
     throw new Error('Method not implemented.');
   }
-  listAllProducts(): Promise<
-    {
-      id: string;
-      name: string;
-      description: string;
-      price: number;
-      createdAt: Date;
-      updatedAt: Date;
-    }[]
-  > {
-    throw new Error('Method not implemented.');
-  }
-  listProductById(id: string): Promise<{
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
-    throw new Error('Method not implemented.');
-  }
-  listProductByType(type: string): Promise<
-    {
-      id: string;
-      name: string;
-      description: string;
-      price: number;
-      createdAt: Date;
-      updatedAt: Date;
-    }[]
-  > {
-    throw new Error('Method not implemented.');
-  }
+
 }
