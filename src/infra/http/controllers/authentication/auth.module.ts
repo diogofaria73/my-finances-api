@@ -1,12 +1,12 @@
-import { Env } from '@/configs/env';
+
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth-controller';
 import { DatabaseModule } from '../../../database/database.module';
-import { JwtStrategy } from '../../auth/utils/jwt.strategy';
-import { inflate, inflateRaw } from 'zlib';
+import { Env } from '@/core/configs/env';
+import { JwtStrategy } from '@/infra/auth/utils/jwt.strategy';
 
 @Module({
   imports: [

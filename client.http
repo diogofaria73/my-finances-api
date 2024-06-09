@@ -2,22 +2,6 @@
 @authToken = {{authenticate.response.body.access_token}}
 ###
 
-# @name create-product
-POST {{baseUrl}}/products/create
-Content-Type: application/json
-Authorization: Bearer {{authToken}}
-
-{
-  "name": "Product 1",
-  "description": "Product 1 description",
-  "price": 100,
-  "isAvailable": true
-}
-
-###
-# @name list-products
-GET {{baseUrl}}/products/list
-
 
 ###
 # @name create-user
@@ -25,10 +9,9 @@ POST {{baseUrl}}/users/create
 Content-Type: application/json
 
 {
-  "name": "User 1",
-  "email": "diogofaria072@gmail.com",
-  "password": "fadababaca",
-  "isActive": true
+  "name": "User 333333",
+  "email": "22222222@gmail.com",
+  "password": "fadababaca"
 }
 
 ###

@@ -8,7 +8,7 @@ export interface UserProps {
    isActive: boolean;
 }
 
-export class UserEntity extends Entity<UserProps>{
+export class User extends Entity<UserProps>{
    get name() {
       return this.props.name
    }
@@ -42,7 +42,7 @@ export class UserEntity extends Entity<UserProps>{
    }
 
    static create(props: UserProps, id?: UniqueEntityID) {
-      const user = new UserEntity(props, id)
+      const user = new User(props, id)
 
       return user;
    }
