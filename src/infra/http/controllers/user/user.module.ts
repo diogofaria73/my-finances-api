@@ -5,6 +5,7 @@ import { DatabaseModule } from '@/infra/database/database.module';
 import { CreateUserUseCase } from '@/domain/user/use-cases/create-user-use-case';
 import { PrismaUsersRepository } from '@/infra/database/prisma/repositories/concrete/user/prisma-users-repository';
 import { IUsersRepository } from '@/domain/user/contracts/users-repository';
+import { ListUsersUseCase } from '@/domain/user/use-cases/list-users-use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -16,6 +17,7 @@ import { IUsersRepository } from '@/domain/user/contracts/users-repository';
   providers: 
   [
     CreateUserUseCase, 
+    ListUsersUseCase,
     PrismaUsersRepository, 
     { 
       provide: IUsersRepository, 

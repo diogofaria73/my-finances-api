@@ -23,7 +23,8 @@
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
-    "doc:generate": "npx @compodoc/compodoc -p tsconfig.json -s "
+    "doc:generate": "npx @compodoc/compodoc -p tsconfig.json -s",
+    "prisma:generate:entities": "npx prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.8",

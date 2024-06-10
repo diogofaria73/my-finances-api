@@ -20,6 +20,7 @@ export class PrismaUsersRepository implements IUsersRepository {
       return PrismaUserMapper.toDomain(result);
 
    }
+   
    async findByEmail(email: string): Promise<User | null> {
       
       const userAlreadyExists = await this.prisma.user.findUnique({
@@ -32,6 +33,15 @@ export class PrismaUsersRepository implements IUsersRepository {
          return PrismaUserMapper.toDomain(userAlreadyExists);
       
       return null;
+   }
 
+      
+   async findAll(): Promise<User[] | null> {
+      const users = await this.prisma.user.findMany();
+
+      if(users)
+         return users.map(user => PrismaUserMapper.toDomain(user));
+
+      return null;
    }
 }

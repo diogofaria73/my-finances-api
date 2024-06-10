@@ -2,7 +2,6 @@
 @authToken = {{authenticate.response.body.access_token}}
 ###
 
-
 ###
 # @name create-user
 POST {{baseUrl}}/users/create
@@ -10,7 +9,7 @@ Content-Type: application/json
 
 {
   "name": "User 333333",
-  "email": "22222222@gmail.com",
+  "email": "dddddddddd@gmail.com",
   "password": "fadababaca"
 }
 

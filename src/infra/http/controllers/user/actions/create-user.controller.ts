@@ -24,7 +24,7 @@ type CreateUserBodySchema = z.infer<typeof createUserBodySchema>;
 export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
-  @Post('/create')
+  @Post('create')
   async handle(@Body() body: CreateUserBodySchema) {
 
     const {name, email, password } = body;

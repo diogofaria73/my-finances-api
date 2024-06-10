@@ -2,6 +2,7 @@ import { Entity } from "@/core/entities/entity";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 export interface UserProps {
+   id?: UniqueEntityID
    name: string;
    email: string;
    password: string;
