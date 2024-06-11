@@ -47,4 +47,12 @@ export class User extends Entity<UserProps>{
 
       return user;
    }
+
+   static update(props: UserProps) {
+      const user = new User(props)
+
+      return user;
+   }
+
+
 }
