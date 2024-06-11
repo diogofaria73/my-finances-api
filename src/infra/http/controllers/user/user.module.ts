@@ -6,18 +6,22 @@ import { CreateUserUseCase } from '@/domain/user/use-cases/create-user-use-case'
 import { PrismaUsersRepository } from '@/infra/database/prisma/repositories/concrete/user/prisma-users-repository';
 import { IUsersRepository } from '@/domain/user/contracts/users-repository';
 import { ListUsersUseCase } from '@/domain/user/use-cases/list-users-use-case';
+import { ListUsersByEmailController } from './actions/list-users-by-email.controller';
+import { ListUsersByEmailUseCase } from '@/domain/user/use-cases/list-users-by-email-use-case';
 
 @Module({
   imports: [DatabaseModule],
   controllers: 
   [
     CreateUserController, 
-    ListUsersController
+    ListUsersController,
+    ListUsersByEmailController
   ],
   providers: 
   [
     CreateUserUseCase, 
     ListUsersUseCase,
+    ListUsersByEmailUseCase,
     PrismaUsersRepository, 
     { 
       provide: IUsersRepository, 

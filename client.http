@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "name": "User 333333",
-  "email": "dddddddddd@gmail.com",
+  "email": "1111@gmail.com",
   "password": "fadababaca"
 }
 
@@ -17,6 +17,15 @@ Content-Type: application/json
 # @name list-users
 GET {{baseUrl}}/users/list
 
+###
+# @name list-users-by-email
+POST  {{baseUrl}}/users/list-by-email
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "email": "diogofaria07123@gmail.com"
+}
 
 ###
 # @name authenticate
