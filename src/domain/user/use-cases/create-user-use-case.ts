@@ -37,7 +37,7 @@ export class CreateUserUseCase {
          name: name,
          email: email,
          password: hashPassword,
-         isActive: isActive
+         isActive: isActive,
       })
 
       await this.usersRepository.save(user);

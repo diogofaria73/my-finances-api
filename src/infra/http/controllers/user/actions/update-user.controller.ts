@@ -27,6 +27,7 @@ export class UpdateUserController {
       
       const { id, name, email, isActive } = body;
 
+      //FIXME: Check reason of id change after update.
       const result = await this.updateUserUseCase.execute({
          id,
          name,

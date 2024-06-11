@@ -42,6 +42,10 @@ export class User extends Entity<UserProps>{
       this.props.isActive = value
    }
 
+   get createdAt() {
+      return this.createdAt
+   }
+
    static create(props: UserProps, id?: UniqueEntityID) {
       const user = new User(props, id)
 

@@ -1,5 +1,6 @@
 import { ListUsersUseCase } from '@/domain/user/use-cases/list-users-use-case';
 import { UsersNotFoundErrorMessage } from '@/domain/user/utils/error/users-not-found-error-message';
+import { HttpUserPresenter } from '@/infra/http/presenter/user/http-user-presenter';
 import { BadRequestException, Controller, Get, NotFoundException } from '@nestjs/common';
 
 @Controller('users')
@@ -22,6 +23,8 @@ export class ListUsersController {
       }
     }
 
-    return result.value
+    const users = result.value.user;
+
+    return { users: users.map(HttpUserPresenter.toHTTPResponse)}
   }
 }

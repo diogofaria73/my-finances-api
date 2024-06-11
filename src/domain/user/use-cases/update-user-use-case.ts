@@ -33,7 +33,7 @@ export class UpdateUserUseCase {
 
       const user_new = await this.userRepository.update(
          id, 
-         User.update({
+         User.create({
             name, 
             email,
             isActive,
