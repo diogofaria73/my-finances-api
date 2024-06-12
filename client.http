@@ -24,7 +24,7 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "email": "tereza@gmail.com"
+  "email": "diogofaria073@gmail.com"
 }
 
 ###
@@ -44,8 +44,8 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "id":"21be5f2f-c3bc-401c-bd68-c802c63672c8",
-  "name": "Vicente Lima - Taysa Lima Garcia",
-  "email": "vicentao@gmail.com",
-  "isActive": false
+  "id":"c058b844-5f98-44ea-b268-eddf3d8fc372",
+  "name": "JAO VINTE3 Lima - Taysa Lima Garcia",
+  "email": "jaoXXIII@gmail.com",
+  "isActive": true
 }

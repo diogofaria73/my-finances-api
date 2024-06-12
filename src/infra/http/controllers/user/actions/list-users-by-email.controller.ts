@@ -4,6 +4,7 @@ import { ZodValidationPipe } from "@/infra/http/pipes/validations/zod-validation
 import { BadRequestException, Body, Controller, NotFoundException, Post, UseGuards, UsePipes } from "@nestjs/common";
 import { z } from 'zod';
 import { JwtAuthGuard } from "../../authentication/jwt-auth-guard";
+import { HttpUserPresenter } from "@/infra/http/presenter/user/http-user-presenter";
 
 const listUsersByEmailBodySchema = z.object({
    email: z.string().email()
@@ -34,7 +35,6 @@ export class ListUsersByEmailController {
                throw new BadRequestException(error)
          }
       }
-
-      return result.value
+      return {user: HttpUserPresenter.toHTTPResponse(result.value.user)}
    }
 }

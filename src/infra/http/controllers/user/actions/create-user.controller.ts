@@ -9,6 +9,7 @@ import { BadRequestException,
 import { ZodValidationPipe } from '../../../pipes/validations/zod-validation-pipe';
 import { z } from 'zod';
 import { UserAlreadyExistsErrorMessage } from '@/domain/user/utils/error/user-already-exists-error-message';
+import { HttpUserPresenter } from '@/infra/http/presenter/user/http-user-presenter';
 
 
 const createUserBodySchema = z.object({
@@ -46,7 +47,6 @@ export class CreateUserController {
           throw new BadRequestException(error)
       }
     }
-
-    return result.value
+    return { user: HttpUserPresenter.toHTTPResponse(result.value.user)}
   }
 }

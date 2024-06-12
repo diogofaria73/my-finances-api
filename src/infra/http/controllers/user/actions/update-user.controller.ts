@@ -4,6 +4,7 @@ import { ZodValidationPipe } from "@/infra/http/pipes/validations/zod-validation
 import { BadRequestException, Body, Controller, Post, Put, UseGuards, UsePipes } from "@nestjs/common";
 import { z } from 'zod';
 import { JwtAuthGuard } from "../../authentication/jwt-auth-guard";
+import { HttpUserPresenter } from "@/infra/http/presenter/user/http-user-presenter";
 
 const updateUserBodySchema = z.object({
       id: z.string(),
@@ -46,7 +47,7 @@ export class UpdateUserController {
          }
       }
 
-      return result.value;
+      return { user: HttpUserPresenter.toHTTPResponse(result.value.user )}
 
    }
 }
